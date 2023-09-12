@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="contact-form-container">
+        <form method="post" class="tm-contact-form">
+            {%csrf_token%}
+            {{ form }}
+            <input type="submit" value="Login" class="btn text-uppercase templatemo-submit-btn">
+        </form>
+    </div>
+</div>
+{% endblock content %}
