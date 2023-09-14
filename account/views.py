@@ -13,5 +13,5 @@ def registration(request):
     return render(request, "account.html", {"rform": rform})
 
 
-class LoginView(BaseLoginView):
-    ...
+# class LoginView(BaseLoginView):
+#     ...

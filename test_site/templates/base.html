@@ -23,13 +23,13 @@
 <body>
 <main>
     {% if messages %}
-            {% for message in messages %}
-                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-primary{% endif %} alert-dismissible
-                     show" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% endfor %}
+    {% for message in messages %}
+    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-primary{% endif %} alert-dismissible
+                show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
     {% endif %}
     <section class="templatemo-top-section">
         <div class="templatemo-header">
@@ -42,7 +42,7 @@
                 <nav class="templatemo-nav">
                     <ul>
                         <li><a class="{% if page_tag == 'home' %}active{% endif %}"
-                                href="{% url 'home_page' %}">Home</a></li>
+                               href="{% url 'home_page' %}">Home</a></li>
                         <li><a class="{% if page_tag == 'products' %}active{% endif %}"
                                href="{% url 'products_page' %}">Products</a></li>
                         <li><a class="{% if page_tag == 'services' %}active{% endif %}"
@@ -52,6 +52,24 @@
                         <li><a class="{% if page_tag == 'contact' %}active{% endif %}"
                                href="{% url 'contact_page' %}">Contact</a>
                         </li>
+                        {% if user.is_authenticated%}
+                            {% if user.is_superuser %}
+                                <li class="templatemo-site-name">{{ user.username }}</li>
+                            {% endif %}
+                        {{ request.session.info }}
+                        <li>
+                            <a href="{% url 'logout' %}">Logout form {{ user.username }}</a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a href="{% url 'login' %}">
+                                Login</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'registration_page' %}">
+                                Registration</a>
+                        </li>
+                        {% endif %}
                     </ul>
                 </nav>
             </div>
@@ -78,7 +96,6 @@
 
     $('body').addClass('loaded');
     });
-
 
 
 </script>
