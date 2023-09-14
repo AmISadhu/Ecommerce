@@ -27,12 +27,12 @@ class Post(models.Model):
 
     image = models.ImageField(upload_to=image_path)
     title = models.CharField(max_length=128)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="users")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="users", blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     views = models.IntegerField(validators=[], default=0)
     text = models.TextField()
-    short_description = models.TextField()
+    short_description = models.TextField(blank=True)
     tags = models.ManyToManyField(Tag, related_name="posts")
 
     class Meta:
@@ -44,7 +44,7 @@ class Post(models.Model):
         try:
             return mark_safe('<img src="{}" width="200px" />'.format(self.image.url))
         except ValueError:
-            return mark_safe('<img src="{}" width="200px" />'.format(self.image))
+            return mark_safe('<img src="/media/{}" width="200px" />'.format(self.image))
 
     admin_img.short_description = "Image"
     admin_img.allow_tags = True

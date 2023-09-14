@@ -26,6 +26,6 @@ urlpatterns = [
     path("account/", include("django.contrib.auth.urls")),
     path("home/", include("home.urls")),
     path("", lambda request: redirect("home_page")),
-
+    path("blog/", include("blog.urls"))
     # path("accounts/profile/", lambda request: redirect("home_page")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

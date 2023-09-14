@@ -9,8 +9,8 @@
                     <li><a class="{% if page_tag == 'contact' %}active{% endif %}" href="{% url 'contact_page' %}">Contact</a>
                     </li>
                     <li><a class="{% if page_tag == 'about' %}active{% endif %}" href="{% url 'about_page' %}">About Us</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a class="{% if page_tag == 'services' %}active{% endif %}" href="#">Our Services</a></li>
+                    <li><a class="{% if page_tag == 'blog' %}active{% endif %}" href="{% url 'blog_page' %}">Blog</a></li>
+                    <li><a class="{% if page_tag == 'new_post' %}active{% endif %}" href="{% url 'new_post_page' %}">New Post</a></li>
                 </ul>
             </nav>
             <div class="col-lg-5 col-md-5 tm-footer-div">

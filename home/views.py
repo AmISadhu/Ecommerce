@@ -13,6 +13,7 @@ def home(request):
 def products(request):
     return render(request, "products.html", {"page_tag": "products"})
 
+
 @login_required
 def contact(request):
     if request.user.is_anonymous:
