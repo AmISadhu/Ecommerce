@@ -1,7 +1,9 @@
 from django.db import models
+import uuid
+import os
 from account.models import User
 from datetime import date
-import os
+
 from django.conf import settings
 from django.dispatch.dispatcher import receiver
 from django.db.models.signals import pre_save, post_delete
@@ -33,6 +35,7 @@ class Post(models.Model):
     views = models.IntegerField(validators=[], default=0)
     text = models.TextField()
     short_description = models.TextField(blank=True)
+    slug = models.SlugField(unique=True, blank=True, null=True)
     tags = models.ManyToManyField(Tag, related_name="posts")
 
     class Meta:
@@ -49,6 +52,7 @@ class Post(models.Model):
     admin_img.short_description = "Image"
     admin_img.allow_tags = True
 
+
 # @receiver(post_delete, sender=Post)
 # def resave_media(sender, instance, **kwargs):
 #     if instance.id is not None
@@ -59,7 +63,7 @@ def remove_media(sender, instance, **kwargs):
     try:
         path_to_file = settings.MEDIA_ROOT / str(instance.image.path)
         path_to_file.unlink()
-    except (OSError,  ValueError) as error:
+    except (OSError, ValueError) as error:
         print(error)
     while True:
         path_to_file = (settings.MEDIA_ROOT / str(instance.image)).parent.absolute()
@@ -69,6 +73,10 @@ def remove_media(sender, instance, **kwargs):
             break
 
 
+@receiver(pre_save, sender=Post)
+def set_slug(sender, instance, **kwargs):
+    if instance.id is None:
+        instance.slug = str(uuid.uuid4())
 
 class Comment(models.Model):
     ...

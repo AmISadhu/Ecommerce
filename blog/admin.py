@@ -7,7 +7,7 @@ class AdminPost(admin.ModelAdmin):
     readonly_fields = ("admin_img", "created", "updated", "views", "author")
     list_filter = ("author", "tags")
     search_fields = ("title", "short_description", "text", "tags")
-    fields = ("admin_img", "title", "author", "tags", "created", "updated", "views")
+    fields = ("admin_img", "title", "author", "tags", "created", "updated", "views", "slug")
 
 
 admin.site.register(Tag)

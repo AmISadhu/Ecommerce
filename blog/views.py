@@ -3,6 +3,8 @@ from django.urls import reverse
 from blog.forms import PostForm
 from django.http.response import HttpResponseForbidden
 from django.views.generic import ListView, FormView
+from django.views.generic.detail import DetailView
+from blog.models import Post, Tag
 
 
 def blog(request):
@@ -50,3 +52,21 @@ class NewPost(FormView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
+
+
+class PostsView(ListView):
+    template_name = "posts.html"
+    model = Post
+    paginate_by = 1  # количество показываемых элементов
+
+    def get_queryset(self):
+        filter = self.request.GET.get("tag", default=None)
+        if filter:
+            return Tag.objects.get(value=filter).posts.all()
+            # return self.model._default_manager.filter(tags__name=filter)
+        return super().get_queryset()
+
+
+class SinglePost(DetailView):
+    model = Post
+    template_name = "single_post.html"

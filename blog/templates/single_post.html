@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load blog_lib %}
+
+{% include 'base/slider.html' %}
+{% endblock slider %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ object.title }}</h1>
+    <img src="{{ post.image.url }}" alt="Post image">
+    <p>{{ post.author}} - <span>{{post.views}}</span> просмотров</p>
+    <p>Создано - {{post.created}}</p>
+    <p>{{ post.short_description }}</p>
+</div>
+{% endblock content %}

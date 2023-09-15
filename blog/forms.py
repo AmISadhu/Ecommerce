@@ -5,7 +5,7 @@ from blog.models import Post
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ("title", "image", "text", "author", "short_description")
+        fields = ("title", "image", "text", "author", "short_description", "tags")
         widgets = {"author": forms.HiddenInput(),
                    "short_description": forms.HiddenInput()
                    }
